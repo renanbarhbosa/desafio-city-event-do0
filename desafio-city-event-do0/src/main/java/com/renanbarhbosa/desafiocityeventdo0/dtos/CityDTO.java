@@ -1,19 +1,17 @@
 package com.renanbarhbosa.desafiocityeventdo0.dtos;
 
 import com.renanbarhbosa.desafiocityeventdo0.entities.City;
-import com.renanbarhbosa.desafiocityeventdo0.entities.Event;
 
+import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CityDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private String name;
 
-    private List<Event> events = new ArrayList<>();
+    @Size(min = 5, max = 20, message = "A cidade deve ter entre 5 e 20 caracteres.")
+    private String name;
 
     public CityDTO() {
     }
@@ -24,6 +22,7 @@ public class CityDTO implements Serializable {
     }
 
     public CityDTO(City entity) {
+        id = entity.getId();
         name = entity.getName();
     }
 
@@ -41,9 +40,5 @@ public class CityDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Event> getEvents() {
-        return events;
     }
 }

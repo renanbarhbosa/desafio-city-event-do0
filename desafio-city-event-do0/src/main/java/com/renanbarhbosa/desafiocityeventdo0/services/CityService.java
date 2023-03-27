@@ -7,6 +7,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,9 +23,9 @@ public class CityService {
     private CityRepository repository;
 
     @Transactional(readOnly = true)
-    public List<CityDTO> findAll() {
-        List<City> cities = repository.findAll();
-        return cities.stream().map(x -> new CityDTO(x)).collect(Collectors.toList());
+    public Page<CityDTO> findAll(Pageable pageable) {
+        Page<City> list = repository.findAll(pageable);
+        return list.map(x -> new CityDTO(x));
     }
 
     @Transactional(readOnly = true)

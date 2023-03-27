@@ -7,6 +7,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,9 +23,9 @@ public class EventService {
     private EventRepository repository;
 
     @Transactional(readOnly = true)
-    public List<EventDTO> findAll() {
-        List<Event> list = repository.findAll();
-        return list.stream().map(x -> new EventDTO(x)).collect(Collectors.toList());
+    public Page<EventDTO> findAll(Pageable pageable) {
+        Page<Event> list = repository.findAll(pageable);
+        return list.map(x -> new EventDTO(x));
     }
 
     @Transactional(readOnly = true)

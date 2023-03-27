@@ -1,8 +1,8 @@
 package com.renanbarhbosa.desafiocityeventdo0.dtos;
 
-import com.renanbarhbosa.desafiocityeventdo0.entities.City;
 import com.renanbarhbosa.desafiocityeventdo0.entities.Event;
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -10,26 +10,37 @@ public class EventDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+
+    @NotBlank(message = "Campo requerido.")
     private String name;
+
+    @PastOrPresent(message = "A data do evento não pode ser passada.")
     private LocalDate date;
+
+    @Size(min = 5, max = 60, message = "deve ter entre 5 e 60 caracteres.")
+    @NotBlank(message = "Campo requerido.")
     private String url;
 
-    private City city;
+    @NotNull(message = "Campo requerido.")
+    private Long cityId;
 
     public EventDTO() {
     }
 
-    public EventDTO(Long id, String name, LocalDate date, String url) {
+    public EventDTO(Long id, String name, LocalDate date, String url, Long cityId) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.url = url;
+        this.cityId = cityId;
     }
 
     public EventDTO(Event entity) {
+        id = entity.getId();
         name = entity.getName();
         date = entity.getDate();
         url = entity.getUrl();
+        cityId = entity.getCity().getId();
     }
 
     public Long getId() {
@@ -64,7 +75,11 @@ public class EventDTO implements Serializable {
         this.url = url;
     }
 
-    public City getCity() {
-        return city;
+    public Long getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
     }
 }

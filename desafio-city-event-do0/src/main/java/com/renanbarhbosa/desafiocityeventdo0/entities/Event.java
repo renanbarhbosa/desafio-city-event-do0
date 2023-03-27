@@ -15,17 +15,19 @@ public class Event {
     private LocalDate date;
     private String url;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "city_id")
     private City city;
 
     public Event() {
     }
 
-    public Event(Long id, String name, LocalDate date, String url) {
+    public Event(Long id, String name, LocalDate date, String url, City city) {
         this.id = id;
         this.name = name;
         this.date = date;
         this.url = url;
+        this.city = city;
     }
 
     public Long getId() {
@@ -62,5 +64,9 @@ public class Event {
 
     public City getCity() {
         return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 }
