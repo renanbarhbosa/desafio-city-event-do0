@@ -2,6 +2,7 @@ package com.renanbarhbosa.desafiocityeventdo0.dtos;
 
 import com.renanbarhbosa.desafiocityeventdo0.entities.City;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -10,7 +11,8 @@ public class CityDTO implements Serializable {
 
     private Long id;
 
-    @Size(min = 5, max = 20, message = "A cidade deve ter entre 5 e 20 caracteres.")
+    @Size(min = 5, max = 50 , message = "A cidade deve ter entre 5 e 60 caracteres.")
+    @NotBlank(message = "Campo requerido.")
     private String name;
 
     public CityDTO() {
