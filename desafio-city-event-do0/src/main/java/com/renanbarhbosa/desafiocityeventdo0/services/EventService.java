@@ -48,7 +48,7 @@ public class EventService {
     @Transactional
     public EventDTO update(Long id, EventDTO dto) {
         try {
-            Event entity = repository.getReferenceById(id);
+            Event entity = repository.getOne(id);
             entity.setName(dto.getName());
             entity.setDate(dto.getDate());
             entity.setUrl(dto.getUrl());

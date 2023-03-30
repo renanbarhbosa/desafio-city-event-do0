@@ -12,9 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CityService {
@@ -46,7 +44,7 @@ public class CityService {
     @Transactional(readOnly = true)
     public CityDTO update(Long id, CityDTO dto) {
         try {
-            City entity = repository.getReferenceById(id);
+            City entity = repository.getOne(id);
             entity.setName(dto.getName());
             entity = repository.save(entity);
             return new CityDTO(entity);
